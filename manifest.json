@@ -1,0 +1,33 @@
+{
+  "manifest_version": 2,
+  "name": "Mitta Screenshot",
+  "short_name": "Mitta Screenshot",
+  "version": "2.0.0",
+  "description": "Imaging extension for the Chrome browser.",
+  "author": "Kord Campbell",
+  "browser_action": {
+    "default_icon": {
+      "19": "icon/icon19.png",
+      "38": "icon/icon38.png"
+    }
+  },
+  "icons": {
+    "16": "icon/icon16.png",
+    "32": "icon/icon32.png",
+    "48": "icon/icon48.png",
+    "128": "icon/icon128.png"
+  },
+  "background": {
+    "scripts": ["screenshotter.js", "actions.js", "resources/jquery.min.js"]
+  },
+  "content_scripts": [
+    { "js": [ "screenshotter.DOM.js", "blanketStyleSet.js" ], "matches": [ "<all_urls>" ], "run_at": "document_end" }
+  ],
+  "permissions": [
+    "tabs",
+    "<all_urls>"
+  ],
+  "web_accessible_resources": [
+    "resources/overlay.html"
+  ]
+}
