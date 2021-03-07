@@ -1,13 +1,13 @@
-Mitta Screenshot (Previously Blipshot) - Google Chrome Extension
-==================================
+Mitta Screenshot (Previously Blipshot)
+======================================
 
-**Real fast and simple one-click full-page screenshots with support for drag & drop. BSD Licensed.**  
+**Google Chrome page imaging. BSD Licensed.**  
 
 
 WHAT IS MITTA SCREENSHOT (PREVIOUSLY BLIPSHOT)
 ----------------------------------------------
 
-Mitta Screenshot is a one-click screenshot extension: just click on the icon and the page screenshot will be created: you can then drag'n'drop it wherever you want and if you are logged into Mitta, it will upload it to your account.
+Mitta Screenshot is a one-click screenshot extension: just click on the icon and the page screenshot will be created and if you are logged into Mitta, the image will be uploaded into your account.
 
 This extension works on Windows, Mac and Linux.
 
