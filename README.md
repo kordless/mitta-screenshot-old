@@ -1,16 +1,13 @@
-Blipshot - Google Chrome Extension
+Mitta Screenshot (Previously Blipshot) - Google Chrome Extension
 ==================================
 
 **Real fast and simple one-click full-page screenshots with support for drag & drop. BSD Licensed.**  
-<https://chrome.google.com/webstore/detail/mdaboflcmhejfihjcbmdiebgfchigjcf>  
 
 
+WHAT IS MITTA SCREENSHOT (PREVIOUSLY BLIPSHOT)
+----------------------------------------------
 
-WHAT IS BLIPSHOT
-----------------
-
-Blipshot is a one-click screenshot extension: just click on the icon and the page screenshot will be created: you can then drag'n'drop it wherever you want.
-Why wasting time if you just want a screenshot? ;)
+Mitta Screenshot is a one-click screenshot extension: just click on the icon and the page screenshot will be created: you can then drag'n'drop it wherever you want and if you are logged into Mitta, it will upload it to your account.
 
 This extension works on Windows, Mac and Linux.
 
@@ -20,16 +17,16 @@ REUSABLE LIBRARIES
 
 This extension contains two reusable libraries:
 
-* **Screenshotter** - Screenshotting a full page in Chrome is a little difficult since there's no internal function to do that. There are various workarounds and Blipshot contains an implementation of one of these.
+* **Screenshotter** - Screenshotting a full page in Chrome is a little difficult since there's no internal function to do that. There are various workarounds and this contains an implementation of one of these.
 The screenshotter[.DOM].js library (2 files) is designed to be as reusable as possible, please do it if you want to make full screen screenshots, until Chrome will implement full page screenshot in its core ([Bug #45209](http://code.google.com/p/chromium/issues/detail?id=45209)).
-* **Blanket Style Set** - A small library, packed to be used in a Chrome extension and with minimal client page impact, that allows to reset and set back a specific CSS property to all the DOM nodes. Used by Blipshot as a workaround for fixed positioned elements. Thanks to @guille for the original code.
+* **Blanket Style Set** - A small library, packed to be used in a Chrome extension and with minimal client page impact, that allows to reset and set back a specific CSS property to all the DOM nodes. Used as a workaround for fixed positioned elements. Thanks to @guille for the original code.
 
 
 KNOWN LIMITATIONS
 -----------------
 
-* Blipshot can't screenshot the Chrome Extensions website (Google policy)
-* Blipshot can't screenshot a page loaded before it was installed (Chrome limitation)
+* Screenshot can't screenshot the Chrome Extensions website (Google policy)
+* Screenshot can't screenshot a page loaded before it was installed (Chrome limitation)
 * Waiting for Google to fix [Bug #45209](http://code.google.com/p/chromium/issues/detail?id=45209) now [Bug #469663](https://code.google.com/p/chromium/issues/detail?id=469663): whole tab screenshot
 * Waiting for Google to fix [Bug #69227](http://code.google.com/p/chromium/issues/detail?id=69227): data URL crashes
 
