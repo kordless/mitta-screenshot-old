@@ -10,7 +10,7 @@ Installation
 ------------
 You may install a developer version of this software by [downloading the zip file](https://github.com/kordless/mitta-screenshot/releases/download/alpha-1/screenshotter.zip) and uncompressing it on your local drive.
 
-In the Chrome menus, click on "more tools" and the "extensions". Enable "developer mode" by using the slider at the top right. Click "load unpacked" in the top left and then navigate into the uncompressed *mitta-screenshot* folder.
+In the Chrome menus, click on "more tools" and the "extensions" menu item. In the extensions view, enable "developer mode" by using the slider at the top right. Click "load unpacked" in the top left and then navigate into the uncompressed *mitta-screenshot* folder.
 
 
 Click "select folder" to load the extension. Click the Extensions icon (a puzzle piece) in the top right corner of the browser and then click the pin icon next to the Mitta Screenshot extension. This will display the > icon in the browser.
