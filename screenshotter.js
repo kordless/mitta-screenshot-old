@@ -1,5 +1,5 @@
 /*
- *  Blipshot
+ *  Screenshot (Previously Blipshot)
  *  Screenshotter.js
  *  Half of the screenshotter algorithm. See Screenshotter.DOM.js for the other half.
  *
@@ -30,6 +30,25 @@
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
+function dataURItoBlob(dataURI) {
+    // convert base64/URLEncoded data component to raw binary data held in a string
+    var byteString;
+    if (dataURI.split(',')[0].indexOf('base64') >= 0)
+        byteString = atob(dataURI.split(',')[1]);
+    else
+        byteString = unescape(dataURI.split(',')[1]);
+
+    // separate out the mime component
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+    // write the bytes of the string to a typed array
+    var ia = new Uint8Array(byteString.length);
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+
+    return new Blob([ia], {type:mimeString});
+}
 
 var Screenshotter = {
 
@@ -81,7 +100,7 @@ var Screenshotter = {
         // ****** Check if everything's is in order.
         var parts = tab.url.match(/https?:\/\/chrome.google.com\/?.*/);
         if (parts !== null) {
-          alert("\n\n\nI'm sorry.\n\nDue to security restrictions \non the Google Chrome Store, \nBlipshot can't run here.\n\nTry on any other page. ;)\n\n\n");
+          alert("Due to security restrictions \non the Google Chrome Store, \Can't run here.\n\nTry on any other page. ;)\n\n\n");
           return false;
         }
 
@@ -89,7 +108,7 @@ var Screenshotter = {
         chrome.tabs.sendMessage(self.shared.tab.id, { action: 'heartbeat' }, function(response) {
           if (!response) {
             UI.status('red', "!", 1000);
-            alert("\n\n\nPlease reload the page to use Blipshot.\n\nIf the problem persists contact me at \nhttp://github.com/folletto/Blipshot/issues\n\n\n");
+            alert("Please reload the page.\n\n");
           }
         });
 
@@ -113,8 +132,7 @@ var Screenshotter = {
         self.screenshotScroll(shared);
       } else {
         // Grab failed, warning
-        // To handle issues like permissions - https://github.com/folletto/Blipshot/issues/9
-        alert("\n\n\nI'm sorry.\n\nIt seems Blipshot wasn't able to grab the screenshot of the active tab.\n\nPlease check the extension permissions.\n\nIf the problem persists contact me at \nhttp://github.com/folletto/Blipshot/issues\n\n\n");
+        alert("Not able to grab the screenshot of the active tab.\n\n");
         return false;
       }
     });
@@ -138,20 +156,54 @@ var Screenshotter = {
   screenshotReturn: function(shared) {
     chrome.tabs.sendMessage(this.shared.tab.id, { action: 'blanketStyleRestore', property: 'position' });
     chrome.tabs.sendMessage(this.shared.tab.id, { action: 'screenshotReturn', shared: shared });
+    // var domain = "http://localhost:8080";
+    var domain = "https://mitta.us";
     var url = shared.tab.url;
-    $.get("http://localhost:8080/h", function(data) {
-      if(data.uid == "anonymous") {
-        UI.status('red', "!", 0);
-        alert("Please login to Mitta to enable uploads.");
-      } else {
-        UI.status('green', "✓", 3000);
-        // create an upload spool
-        $.post("http://localhost:8080 /u", {url:url}).done(function(data){
-          var spool_name = data.response[0]['name'];
-          alert(spool_name);
-        });
-      }
-    })
+    var title = shared.tab.title;
+    var sidekick = "nope"; // target index
+    $.get(domain+"/p/sidekick", function(data) {
+      sidekick = data.setting.value;
+      $.get(domain+"/h", function(data) {
+        if(data.uid == "anonymous") {
+          UI.status('red', "!", 0);
+          alert("Please login to Mitta to enable uploads.");
+        } else {
+          // create an upload spool
+          $.post(domain+"/u", {url:url, title}).done(function(data){
+            // upload url
+            var nick = data.response[0]['nick'];
+            var upload_url = domain + "/u/" + nick;
+            var blob = dataURItoBlob(shared.imageDataURL);
+            var fd = new FormData();
+            fd.append("data", blob, "screenshot");
+
+            // try to upload please
+            $.ajax({
+              url: upload_url, 
+              type: 'POST',
+              data: fd,
+              processData: false,
+              contentType: false
+            }).done(function(){
+              // send to the text tag model and index
+              $.ajax({
+                url: domain+"/t/"+sidekick+"/document-text-detection",
+                type: 'POST',
+                data: { "spool": nick },
+                dataType: 'json', // coming back from server
+              }).done(function(data){
+                UI.status('green', "✓", 3000);
+              }).fail(function(){
+                alert("An error occured during tagging or indexing.")
+              });
+            }).fail(function(){
+              alert("An error occurred and the files were not sent.");
+            });
+          });
+        }
+      })
+
+    });
   },
 
   // ****************************************************************************************** EVENT MANAGER / HALF

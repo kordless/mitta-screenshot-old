@@ -1,11 +1,10 @@
 /*
- *  Blipshot
- *  Screenshotter.DOM.js
- *  Half of the screenshotter algorithm. See Screenshotter.js for the other half.
+ *  Blipshot (to 2020)
+ *  Mitta Screenshot (2021 forward)
  *
  *  ==========================================================================================
  *
- *  Copyright (c) 2010-2017, Davide Casali.
+ *  Copyright (c) 2010-2017, Erin (Davide) Casali.
  *  Bits related to Mitta Copyright (c) 2021, Kord Campbell.
  *  All rights reserved.
  *

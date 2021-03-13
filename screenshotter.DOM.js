@@ -1,5 +1,5 @@
 /*
- *  Blipshot
+ *  Screenshot (Previously Blipshot)
  *  Screenshotter.DOM.js
  *  Half of the screenshotter algorithm. See Screenshotter.js for the other half.
  *
@@ -119,7 +119,7 @@
       });
     } else {
       // ****** No content! Maybe page too long?
-      alert("\n\n\nI'm sorry.\n\nThere was some trouble in generating the screenshot.\n\nIt might be due to Chrome canvas size limitations.\nTry on a shorter page?\n\n\n");
+      alert("There was some trouble in generating the screenshot.\n\nIt might be due to Chrome canvas size limitations.\nTry on a shorter page?\n\n\n");
     }
 
   }

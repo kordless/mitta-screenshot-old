@@ -24,7 +24,7 @@
     { "js": [ "screenshotter.DOM.js", "blanketStyleSet.js" ], "matches": [ "<all_urls>" ], "run_at": "document_end" }
   ],
   "permissions": [
-    "tabs",
+    "activeTab",
     "<all_urls>"
   ],
   "web_accessible_resources": [

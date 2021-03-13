@@ -1,101 +1,28 @@
-Mitta Screenshot (Previously Blipshot) - Google Chrome Extension
-==================================
+Mitta Screenshot
+=============+==
+Mitta Screenshot is a Google Chrome extension to screenshot and upload webpages to Mitta.us.
 
-**Real fast and simple one-click full-page screenshots with support for drag & drop. BSD Licensed.**  
-
-
-WHAT IS MITTA SCREENSHOT (PREVIOUSLY BLIPSHOT)
-----------------------------------------------
-
-Mitta Screenshot is a one-click screenshot extension: just click on the icon and the page screenshot will be created: you can then drag'n'drop it wherever you want and if you are logged into Mitta, it will upload it to your account.
-
-This extension works on Windows, Mac and Linux.
-
-
-REUSABLE LIBRARIES
-------------------
-
-This extension contains two reusable libraries:
-
-* **Screenshotter** - Screenshotting a full page in Chrome is a little difficult since there's no internal function to do that. There are various workarounds and this contains an implementation of one of these.
-The screenshotter[.DOM].js library (2 files) is designed to be as reusable as possible, please do it if you want to make full screen screenshots, until Chrome will implement full page screenshot in its core ([Bug #45209](http://code.google.com/p/chromium/issues/detail?id=45209)).
-* **Blanket Style Set** - A small library, packed to be used in a Chrome extension and with minimal client page impact, that allows to reset and set back a specific CSS property to all the DOM nodes. Used as a workaround for fixed positioned elements. Thanks to @guille for the original code.
-
-
-KNOWN LIMITATIONS
------------------
-
-* Screenshot can't screenshot the Chrome Extensions website (Google policy)
-* Screenshot can't screenshot a page loaded before it was installed (Chrome limitation)
-* Waiting for Google to fix [Bug #45209](http://code.google.com/p/chromium/issues/detail?id=45209) now [Bug #469663](https://code.google.com/p/chromium/issues/detail?id=469663): whole tab screenshot
-* Waiting for Google to fix [Bug #69227](http://code.google.com/p/chromium/issues/detail?id=69227): data URL crashes
-
-
-TODO
-----
-
-* Fix horizontal scrollbar evaluation (now it assumes that the page hasn't the scrollbar)
-
-
-MAY DO
-------
-
-* Try to find a faster way to grab screen parts (directly to canvas?)
-* Store images in a local WebSQL database for late retrieval
-* Find a way to "download" them in a block (zip?)
-
-
-CHANGELOG
----------
-
-* **1.2.3** (29/08/2018)
-  * Fixed "day" in file name (was: weekday) #19.
-
-* **1.2.2** (02/10/2017)
-  * Fixed scrolling due to change in API behaviour in Chrome 61 (`scrollingElement`), see #17.
-
-* **1.2.1** (06/08/2017)
-  * Limit height to 32766px due to [Chromium](https://bugs.chromium.org/p/chromium/issues/detail?id=339725)/[Skia](https://bugs.chromium.org/p/skia/issues/detail?id=2122) own limitations.
-  * Show error message if image generated has issues.
-  * More reliable height calculation for all pages.
-
-* **1.2** (30/03/2017)
-  * Implemented click to download instantly.
-  * Added check if the script is loaded.
-  * Workaround for Chrome blocking drag'n'drop on HTTPS sites (not ideal, no nice name).
-  * Increased filenames "precision" by adding seconds to the name.
-  * Moved HTML to separate template.
-  * Slight visual tweaking.
-
-* **1.1.1** (24/08/2014)
-  * Updated icons.
-
-* **1.1.0** (24/08/2014)
-  * Fixed: Added code to workaround pages with `fixed` elements. This should allow screenshotting a number of pages with fixed elements (some will still have repeating elements). This has been built as a reusable library (blankedStyleSet.js). Thanks @guille.
-
-* **1.0.6** (12/04/2014)
-  * Fixed: Changed permission to <all_urls> to workaround a Chrome change / bug.
-
-* **1.0.5** (14/01/2013)
-  * Fixed: WebKitBlobBuilder was deprecated, using Blob instead. Thanks to @ble for the code snippet.
-  * Updated: Manifest V2.
-
-* **1.0.4** (20/02/2012)
-  * Fixed: re-introduced page names and timestamp on file names.
-
-* **1.0.3** (19/02/2012)
-  * Fixed: added workaround to screenshot big pages (thanks to @ble). It's a workaround for Chrome Bug #69227.
-  * Added info message when you try to screenshot a Chrome Store page (it's not allowed).
-
-* **1.0.2** (16/08/2010)
-  * First public release.
-
-
-LICENSE
+License
 -------
+Mitta Screenshot is copyright Erin (Davide) Casali and Kord Campbell. It is licensed under a BSD License. The original project hosted [on Github as Blipshot](https://github.com/folletto) and any authors of that project do not promote or represent Mitta, Mitta.us or its affliates.
 
-  _Copyright (C) 2010-2017, Davide Casali_  
-  _Licensed under **BSD Opensource License** (free for personal and commercial use)_
+Installation
+------------
+You may install a developer version of this software by downloading the zip file and uncompressing it on your local drive.
+
+In the Chrome menus, click on "more tools" and the "extensions". Enable "developer mode" by using the slider at the top right. Click "load unpacked" in the top left and then navigate into the uncompressed *mitta-screenshot* folder.
 
 
-> _Time is very slow for those who wait._
+Click "select folder" to load the extension. Click the Extensions icon (a puzzle piece) in the top right corner of the browser and then click the pin icon next to the Mitta Screenshot extension. This will display the > icon in the browser.
+
+You may also be able to find the extension on the Chrome store, but it won't be regularly published until we launch and have finished testing and quality assurance on the plugin and site. Try to use the developer version!
+
+Use
+---
+To use the extension, navigate to a page and then click on the > icon to save and index the page. You can use the terminal console on Mitta to search for the page by term. Any word found on the page by the machine learning model will be in the index!
+
+Please let me know if you have any questions or suggstions!
+
+Kord 
+
+
