@@ -1,5 +1,5 @@
 Mitta Screenshot
-=============+==
+================
 Mitta Screenshot is a Google Chrome extension to screenshot and upload webpages to Mitta.us.
 
 License
