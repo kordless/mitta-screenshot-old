@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Mitta Screenshot
 =============+==
 Mitta Screenshot is a Google Chrome extension to screenshot and upload webpages to Mitta.us.
@@ -25,6 +24,3 @@ To use the extension, navigate to a page and then click on the > icon to save an
 Please let me know if you have any questions or suggstions!
 
 Kord 
-
-
-=======
