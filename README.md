@@ -4,7 +4,7 @@ Mitta Screenshot is a Google Chrome extension to screenshot and upload webpages 
 
 License
 -------
-Mitta Screenshot is copyright 2021 by Kord Campbell and coypright 2010-2017 by Erin (Davide) Casali. It is licensed under the [original BSD License](https://github.com/kordless/mitta-screenshot/blob/main/license.txt). The original project is hosted [on Github as Blipshot](https://github.com/folletto) and authors of that project do not promote or represent Mitta, Mitta.us or its affliates. 
+Mitta Screenshot is copyright 2021 by Kord Campbell and copyright 2010-2017 by Erin (Davide) Casali. It is licensed under the [original BSD License](https://github.com/kordless/mitta-screenshot/blob/main/license.txt). The original project is hosted [on Github as Blipshot](https://github.com/folletto) and authors of that project do not promote or represent Mitta, Mitta.us or its affliates. 
 
 Installation
 ------------
