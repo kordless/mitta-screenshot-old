@@ -161,49 +161,53 @@ var Screenshotter = {
     var url = shared.tab.url;
     var title = shared.tab.title;
     var sidekick = "nope"; // target index
+
+    // GET settings
     $.get(domain+"/p/sidekick", function(data) {
       sidekick = data.setting.value;
-      $.get(domain+"/h", function(data) {
-        if(data.uid == "anonymous") {
-          UI.status('red', "!", 0);
-          alert("Please login to Mitta to enable uploads.");
-        } else {
-          // create an upload spool
-          $.post(domain+"/u", {url:url, title}).done(function(data){
-            // upload url
-            var nick = data.response[0]['nick'];
-            var upload_url = domain + "/u/" + nick;
-            var blob = dataURItoBlob(shared.imageDataURL);
-            var fd = new FormData();
-            fd.append("data", blob, "screenshot");
 
-            // try to upload please
-            $.ajax({
-              url: upload_url, 
-              type: 'POST',
-              data: fd,
-              processData: false,
-              contentType: false
-            }).done(function(){
-              // send to the text tag model and index
-              $.ajax({
-                url: domain+"/t/"+sidekick+"/document-text-detection",
-                type: 'POST',
-                data: { "spool": nick },
-                dataType: 'json', // coming back from server
-              }).done(function(data){
-                UI.status('green', "✓", 3000);
-              }).fail(function(){
-                alert("An error occured during tagging or indexing.")
-              });
-            }).fail(function(){
-              alert("An error occurred and the files were not sent.");
-            });
+      // POST an upload spool
+      $.post(domain+"/u", {url:url, title}).done(function(data){
+        // upload url
+        var nick = data.response[0]['nick'];
+        var upload_url = domain + "/u/" + nick;
+        var blob = dataURItoBlob(shared.imageDataURL);
+        var fd = new FormData();
+        fd.append("data", blob, "screenshot");
+
+        // POST upload please
+        $.ajax({
+          url: upload_url, 
+          type: 'POST',
+          data: fd,
+          processData: false,
+          contentType: false
+        }).done(function(){
+          // send to the text tag model and index
+          $.ajax({
+            url: domain+"/t/"+sidekick+"/document-text-detection",
+            type: 'POST',
+            data: { "spool": nick },
+            dataType: 'json', // coming back from server
+          }).done(function(data){
+            UI.status('green', "✓", 3000);
+          }).fail(function(){
+            alert("An error occured during tagging or indexing.")
           });
-        }
-      })
+        }).fail(function(){
+          alert("An error occurred and the files were not sent.");
+        });
+        // end upload POST
 
+      });
+      // end spool POST
+
+    }).fail(function() {
+      UI.status('red', "!", 0);
+      alert("Please login to Mitta to enable uploads.");
     });
+    // end settings GET
+
   },
 
   // ****************************************************************************************** EVENT MANAGER / HALF
