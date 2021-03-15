@@ -21,6 +21,8 @@ Use
 ---
 To use the extension, navigate to a page and then click on the > icon to save and index the page. You can use the terminal console on Mitta to search for the page by term. Any word found on the page by the machine learning model will be in the index!
 
+
+
 Please let me know if you have any questions or suggstions!
 
 Kord 
