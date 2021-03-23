@@ -6,6 +6,11 @@ License
 -------
 Mitta Screenshot is copyright 2021 by Kord Campbell and copyright 2010-2017 by Davide Casali and Erin Casali. It is licensed under the [original BSD License](https://github.com/kordless/mitta-screenshot/blob/main/license.txt). The original project is hosted [on Github as Blipshot](https://github.com/folletto) and authors of that project do not promote or represent Mitta, Mitta.us or its affliates.
 
+Video
+-----
+Watch the video to install the developer extension. It's not hard!
+[![Chrome Extension](https://img.youtube.com/vi/k1804FaFTdM/0.jpg)](https://www.youtube.com/watch?v=k1804FaFTdM)
+
 Installation
 ------------
 You may install a developer version of this software by [downloading the zip file](https://github.com/kordless/mitta-screenshot/releases/download/alpha-2/mitta-screenshot-alpha-2.zip) and uncompressing it on your local drive.
