@@ -9,6 +9,8 @@ Mitta Screenshot is copyright 2021 by Kord Campbell and copyright 2010-2017 by D
 Video
 -----
 Watch the video to install the developer extension. It's not hard!
+
+
 [![Chrome Extension](https://img.youtube.com/vi/k1804FaFTdM/0.jpg)](https://www.youtube.com/watch?v=k1804FaFTdM)
 
 Installation
