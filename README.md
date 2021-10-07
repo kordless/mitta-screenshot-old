@@ -15,7 +15,7 @@ Watch the video to install the developer extension. It's not hard!
 
 Installation
 ------------
-You may install a developer version of this software by [downloading the zip file](https://github.com/kordless/mitta-screenshot/releases/download/alpha-2/mitta-screenshot-alpha-2.zip) and uncompressing it on your local drive.
+You may install a developer version of this software by [downloading the zip file](https://github.com/kordless/mitta-screenshot/archive/refs/heads/main.zip) and uncompressing it on your local drive.
 
 In the Chrome menus, click on "more tools" and the "extensions" menu item. In the extensions view, enable "developer mode" by using the slider at the top right. Click "load unpacked" in the top left and then navigate into the uncompressed *mitta-screenshot* folder.
 
