@@ -253,7 +253,7 @@ var Screenshotter = {
           // Ouch: Skia / Chromium limitation
           // https://bugs.chromium.org/p/chromium/issues/detail?id=339725
           // https://bugs.chromium.org/p/skia/issues/detail?id=2122
-          if (canvas.height > 32766) canvas.height = 32766;
+          if (canvas.height > 16000) canvas.height = 16000;
 
           // ****** Stitch
           for (var j = 0; j < images.length; j++) {

@@ -43,14 +43,14 @@
     // Identify which part of the DOM is "scrolling", and store the previous position
     var scrollNode = document.scrollingElement || document.documentElement;
 
-    if (scrollNode.scrollHeight > 32766) {
-      alert("\n\n\nDue to Chrome canvas memory limits, the screenshot will be limited to 32766px height.\n\n\n");
+    if (scrollNode.scrollHeight > 16000) {
+      // alert("\n\n\nDue to Chrome canvas memory limits, the screenshot will be limited to 16,000px height.\n\n\n");
     }
 
     shared.originalScrollTop = scrollNode.scrollTop; // ->[] save user scrollTop
     shared.tab.hasVscrollbar = (window.innerHeight < scrollNode.scrollHeight);
     scrollNode.scrollTop = 0;
-    setTimeout(function() { screenshotVisibleArea(shared); }, 100);
+    setTimeout(function() { screenshotVisibleArea(shared); }, 450);
   }
 
   // 2
@@ -65,7 +65,7 @@
     // Scroll down!
     scrollNode.scrollTop += window.innerHeight;
 
-    if (scrollNode.scrollTop == scrollTopBeforeScrolling || scrollNode.scrollTop > 32766) { // 32766 --> Skia / Chrome Canvas Limitation, see recursiveImageMerge()
+    if (scrollNode.scrollTop == scrollTopBeforeScrolling || scrollNode.scrollTop > 16000) { // 32766 --> Skia / Chrome Canvas Limitation, see recursiveImageMerge()
       // END ||
       shared.imageDirtyCutAt = scrollTopBeforeScrolling % window.innerHeight;
       scrollNode.scrollTop = shared.originalScrollTop; // <-[] restore user scrollTop
@@ -74,7 +74,7 @@
       // LOOP >>
       // This bounces to the screenshot call before coming back in this function.
       // The delay is due to some weird race conditions.
-      setTimeout(function() { screenshotVisibleArea(shared); }, 100);
+      setTimeout(function() { screenshotVisibleArea(shared); }, 450);
     }
   }
 
