@@ -50,7 +50,7 @@
     shared.originalScrollTop = scrollNode.scrollTop; // ->[] save user scrollTop
     shared.tab.hasVscrollbar = (window.innerHeight < scrollNode.scrollHeight);
     scrollNode.scrollTop = 0;
-    setTimeout(function() { screenshotVisibleArea(shared); }, 450);
+    setTimeout(function() { screenshotVisibleArea(shared); }, 500);
   }
 
   // 2
@@ -74,7 +74,7 @@
       // LOOP >>
       // This bounces to the screenshot call before coming back in this function.
       // The delay is due to some weird race conditions.
-      setTimeout(function() { screenshotVisibleArea(shared); }, 450);
+      setTimeout(function() { screenshotVisibleArea(shared); }, 500);
     }
   }
 
