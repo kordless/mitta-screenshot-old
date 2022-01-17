@@ -156,51 +156,115 @@ var Screenshotter = {
   screenshotReturn: function(shared) {
     chrome.tabs.sendMessage(this.shared.tab.id, { action: 'blanketStyleRestore', property: 'position' });
     chrome.tabs.sendMessage(this.shared.tab.id, { action: 'screenshotReturn', shared: shared });
-    // var domain = "http://localhost:8080";
-    var domain = "https://mitta.us";
-    var url = shared.tab.url;
-    var title = shared.tab.title;
-    var sidekick = "nope"; // target index
+    var domain = "http://localhost:8080";
+    //var domain = "https://mitta.us";
+    var url = encodeURI(shared.tab.url);
+    var title = encodeURI(shared.tab.title);
+    var sidekick = "none"; // target index
+
+    // file stuff
+    var blob = dataURItoBlob(shared.imageDataURL);
+    var fd = new FormData();
+    fd.append("data", blob, "screenshot");
 
     // GET settings
-    $.get(domain+"/p/sidekick", function(data) {
+    $.getJSON(
+      domain+"/p/sidekick"
+    ).done(function(data) {
+      // load default sidekick nick name
       sidekick = data.setting.value;
 
-      // POST an upload spool
-      $.post(domain+"/u", {url:url, title}).done(function(data){
-        // upload url
-        var nick = data.response[0]['nick'];
-        var upload_url = domain + "/u/" + nick;
-        var blob = dataURItoBlob(shared.imageDataURL);
-        var fd = new FormData();
-        fd.append("data", blob, "screenshot");
+      // GET a document matching the url from the sidekick's index, if available
+      $.getJSON(
+        domain+"/s/"+sidekick+'?line=!search url:"'+encodeURI(url)+'"'
+      ).done(function(data) {
+        // upload image to existing document
+        if (data.response.docs[0]) {
+          alert("found it");
+          var spool = data.response.docs[0]['spool'];
+          var upload_url = domain + "/u/" + spool;
+          var document_id = data.response.docs[0]['document_id'];
 
-        // POST upload please
-        $.ajax({
-          url: upload_url, 
-          type: 'POST',
-          data: fd,
-          processData: false,
-          contentType: false
-        }).done(function(){
-          // send to the text tag model and index
+          // append the document id to the form data
+          fd.append("document_id", document_id);
+
+          // upload the image to the spool (passes in document_id)
           $.ajax({
-            url: domain+"/t/"+sidekick+"/document-text-detection",
+            url: upload_url,
             type: 'POST',
-            data: { "spool": nick },
-            dataType: 'json', // coming back from server
-          }).done(function(data){
+            data: fd,
+            processData: false,
+            contentType: false
+          }).done(function(){
             UI.status('green', "✓", 3000);
           }).fail(function(){
-            alert("An error occured during tagging or indexing.")
+            alert("An error occurred and the files were not sent.");
           });
-        }).fail(function(){
-          alert("An error occurred and the files were not sent.");
-        });
-        // end upload POST
 
-      });
-      // end spool POST
+        } else {
+
+          alert("didn't find it");
+          
+          // create a new spool
+          $.ajax({
+            url: domain+"/u",
+            type: 'POST',
+            data: {
+              "title": title,
+              "sidekick": sidekick
+            }
+          }).done(function(data){
+            alert("done with spool");
+            // upload url
+            var nick = data.response[0]['nick'];
+            var upload_url = domain + "/u/" + nick;
+
+            // create a new document via the APIs
+            $.ajax({
+              url: domain+"/i",
+              type: 'POST',
+              data: {
+                "line": '?line=!crawl ' + url,
+                "url": url,
+                "sidekick": sidekick
+              },
+              dataType: 'json'
+            }).done(function(data){
+              alert("done");
+              // upload image to spool
+              //if (data.docs[0].url) {
+              if (false) {
+                var spool = data.docs[0].spool;
+                var url = data.docs[0].url;
+                var upload_url = domain + "/u/" + spool + "?url=" + encodeURI(url);
+
+                // POST upload please
+                $.ajax({
+                  url: upload_url,
+                  type: 'POST',
+                  data: fd,
+                  processData: false,
+                  contentType: false
+                }).done(function(){
+                  UI.status('green', "✓", 3000);
+                }).fail(function(){
+                  alert("An error occurred and the files were not sent.");
+                });
+
+              } else {
+                alert("Error requesting remote crawl.")
+              }
+
+            }).fail(function(){
+              // fail on crawl request
+              alert("Error requesting remote crawl.")    
+            });
+          });  
+        
+        } // end else
+
+      }); // end get document
+
 
     }).fail(function() {
       UI.status('red', "!", 0);
@@ -253,7 +317,7 @@ var Screenshotter = {
           // Ouch: Skia / Chromium limitation
           // https://bugs.chromium.org/p/chromium/issues/detail?id=339725
           // https://bugs.chromium.org/p/skia/issues/detail?id=2122
-          if (canvas.height > 16000) canvas.height = 16000;
+          if (canvas.height > 8000) canvas.height = 8000;
 
           // ****** Stitch
           for (var j = 0; j < images.length; j++) {
