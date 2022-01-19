@@ -158,7 +158,7 @@ var Screenshotter = {
     chrome.tabs.sendMessage(this.shared.tab.id, { action: 'screenshotReturn', shared: shared });
     var domain = "http://localhost:8080";
     var url = encodeURI(shared.tab.url); // we only send the url so it may be placed in user's index
-    var title = encodeURI(shared.tab.title); // title can be used to look up stored records
+    var title = shared.tab.title; // title can be used to look up stored records
     var sidekick = "none"; // target index (user controled)
 
     // file stuff
