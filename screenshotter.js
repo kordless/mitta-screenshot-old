@@ -157,10 +157,9 @@ var Screenshotter = {
     chrome.tabs.sendMessage(this.shared.tab.id, { action: 'blanketStyleRestore', property: 'position' });
     chrome.tabs.sendMessage(this.shared.tab.id, { action: 'screenshotReturn', shared: shared });
     var domain = "http://localhost:8080";
-    //var domain = "https://mitta.us";
-    var url = encodeURI(shared.tab.url);
-    var title = encodeURI(shared.tab.title);
-    var sidekick = "none"; // target index
+    var url = encodeURI(shared.tab.url); // we only send the url so it may be placed in user's index
+    var title = encodeURI(shared.tab.title); // title can be used to look up stored records
+    var sidekick = "none"; // target index (user controled)
 
     // file stuff
     var blob = dataURItoBlob(shared.imageDataURL);
@@ -169,6 +168,7 @@ var Screenshotter = {
 
     // GET settings
     $.getJSON(
+      // get the user's preferred index
       domain+"/p/sidekick"
     ).done(function(data) {
       // load default sidekick nick name
@@ -176,17 +176,15 @@ var Screenshotter = {
 
       // GET a document matching the url from the sidekick's index, if available
       $.getJSON(
+        // user request to encode the url and submit it for storage
+        // users must have an account and agree to terms on mitta.us/legal
         domain+"/s/"+sidekick+'?line=!search url:"'+encodeURI(url)+'"'
       ).done(function(data) {
         // upload image to existing document
         if (data.response.docs[0]) {
-          alert("found it");
           var spool = data.response.docs[0]['spool'];
-          var upload_url = domain + "/u/" + spool;
           var document_id = data.response.docs[0]['document_id'];
-
-          // append the document id to the form data
-          fd.append("document_id", document_id);
+          var upload_url = domain + "/u/" + spool + "?document_id=" + document_id;
 
           // upload the image to the spool (passes in document_id)
           $.ajax({
@@ -202,63 +200,58 @@ var Screenshotter = {
           });
 
         } else {
-
-          alert("didn't find it");
-          
-          // create a new spool
+          // find or create a spool from url or title
           $.ajax({
             url: domain+"/u",
             type: 'POST',
-            data: {
-              "title": title,
-              "sidekick": sidekick
-            }
+            data: JSON.stringify([{
+              title: title,
+              url: url,
+              tags: ["#url"]
+            }]),
+            contentType: 'application/json',
+            dataType: 'json'
           }).done(function(data){
-            alert("done with spool");
             // upload url
-            var nick = data.response[0]['nick'];
+            var nick = data['nick'];
             var upload_url = domain + "/u/" + nick;
+            var spool_name = data['name'];
 
             // create a new document via the APIs
             $.ajax({
-              url: domain+"/i",
+              url: domain+"/i/"+sidekick,
               type: 'POST',
-              data: {
-                "line": '?line=!crawl ' + url,
-                "url": url,
-                "sidekick": sidekick
-              },
+              data: JSON.stringify([{
+                line: "?line=!crawl " + url,
+                url: url,
+                title: title,
+                spool: spool_name 
+              }]),
+              contentType: 'application/json',
               dataType: 'json'
             }).done(function(data){
-              alert("done");
-              // upload image to spool
-              //if (data.docs[0].url) {
-              if (false) {
-                var spool = data.docs[0].spool;
-                var url = data.docs[0].url;
-                var upload_url = domain + "/u/" + spool + "?url=" + encodeURI(url);
-
-                // POST upload please
-                $.ajax({
-                  url: upload_url,
-                  type: 'POST',
-                  data: fd,
-                  processData: false,
-                  contentType: false
-                }).done(function(){
-                  UI.status('green', "✓", 3000);
-                }).fail(function(){
-                  alert("An error occurred and the files were not sent.");
-                });
-
-              } else {
-                alert("Error requesting remote crawl.")
-              }
+              var document_id = data['docs'][0]['document_id'];
+              upload_url = upload_url + "?document_id=" + document_id;
+              // upload the image to the spool (passes in document_id)
+              $.ajax({
+                url: upload_url,
+                type: 'POST',
+                data: fd,
+                processData: false,
+                contentType: false
+              }).done(function(){
+                UI.status('green', "✓", 3000);
+              }).fail(function(xhr, textStatus, errorThrown){
+                alert("An error occurred and no upload was done.");
+              });
 
             }).fail(function(){
-              // fail on crawl request
-              alert("Error requesting remote crawl.")    
+              // fail on new document request
+              alert("Error requesting new document.")    
             });
+
+          }).fail(function(xhr, textStatus, errorThrown){
+            alert("Error trying to find document.");
           });  
         
         } // end else
