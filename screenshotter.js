@@ -156,7 +156,9 @@ var Screenshotter = {
   screenshotReturn: function(shared) {
     chrome.tabs.sendMessage(this.shared.tab.id, { action: 'blanketStyleRestore', property: 'position' });
     chrome.tabs.sendMessage(this.shared.tab.id, { action: 'screenshotReturn', shared: shared });
-    var domain = "http://localhost:8080";
+    var domain = "https://mitta.us";
+    // var domain = "http://localhost:8080";
+
     var url = encodeURI(shared.tab.url); // we only send the url so it may be placed in user's index
     var title = shared.tab.title; // title can be used to look up stored records
     var sidekick = "none"; // target index (user controled)
@@ -204,11 +206,11 @@ var Screenshotter = {
           $.ajax({
             url: domain+"/u",
             type: 'POST',
-            data: JSON.stringify([{
+            data: JSON.stringify({
               title: title,
               url: url,
               tags: ["#url"]
-            }]),
+            }),
             contentType: 'application/json',
             dataType: 'json'
           }).done(function(data){
