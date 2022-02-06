@@ -43,7 +43,7 @@
     // Identify which part of the DOM is "scrolling", and store the previous position
     var scrollNode = document.scrollingElement || document.documentElement;
 
-    if (scrollNode.scrollHeight > 16000) {
+    if (scrollNode.scrollHeight > 7500) {
       // alert("\n\n\nDue to Chrome canvas memory limits, the screenshot will be limited to 16,000px height.\n\n\n");
     }
 
@@ -65,7 +65,7 @@
     // Scroll down!
     scrollNode.scrollTop += window.innerHeight;
 
-    if (scrollNode.scrollTop == scrollTopBeforeScrolling || scrollNode.scrollTop > 16000) { // 32766 --> Skia / Chrome Canvas Limitation, see recursiveImageMerge()
+    if (scrollNode.scrollTop == scrollTopBeforeScrolling || scrollNode.scrollTop > 7500) { // 32766 --> Skia / Chrome Canvas Limitation, see recursiveImageMerge()
       // END ||
       shared.imageDirtyCutAt = scrollTopBeforeScrolling % window.innerHeight;
       scrollNode.scrollTop = shared.originalScrollTop; // <-[] restore user scrollTop
@@ -89,7 +89,7 @@
     var timestamp = '' + d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()) + '-' + pad2(d.getHours()) + '' + pad2(d.getMinutes()) + '\'' + pad2(d.getSeconds()) + '';
     var filename = "pageshot of '" + normalizeFileName(shared.tab.title) + "' @ " + timestamp;
     var blobURL = dataToBlobURL(shared.imageDataURL);
-
+    /* remove the preview
     if (blobURL) {
       // ****** Add DOM Elements to Page
       renderTemplate("overlay", {
@@ -121,6 +121,7 @@
       // ****** No content! Maybe page too long?
       alert("There was some trouble in generating the screenshot.\n\nIt might be due to Chrome canvas size limitations.\nTry on a shorter page?\n\n\n");
     }
+    */
 
   }
 

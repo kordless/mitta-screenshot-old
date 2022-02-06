@@ -8,6 +8,8 @@
  *  Copyright (c) 2010-2017, Davide Casali.
  *  All rights reserved.
  *
+ *  Bits related to Mitta Copyright (c) 2022, Kord Campbell.
+
  *  Redistribution and use in source and binary forms, with or without modification, are
  *  permitted provided that the following conditions are met:
  *
@@ -154,12 +156,14 @@ var Screenshotter = {
 
   // on return, we upload to a mitta spool if logged in
   screenshotReturn: function(shared) {
+
+    $('#chrome-extension__mitta-dim').remove();
     chrome.tabs.sendMessage(this.shared.tab.id, { action: 'blanketStyleRestore', property: 'position' });
     chrome.tabs.sendMessage(this.shared.tab.id, { action: 'screenshotReturn', shared: shared });
     var domain = "https://mitta.us";
-    // var domain = "http://localhost:8080";
+    //var domain = "http://localhost:8080";
 
-    var url = encodeURI(shared.tab.url); // we only send the url so it may be placed in user's index
+    var url = shared.tab.url; // we only send the url so it may be placed in user's index
     var title = shared.tab.title; // title can be used to look up stored records
     var sidekick = "none"; // target index (user controled)
 
@@ -177,10 +181,12 @@ var Screenshotter = {
       sidekick = data.setting.value;
 
       // GET a document matching the url from the sidekick's index, if available
+      var request_url = domain+"/s/"+sidekick+'?line=!search url_str:"'+encodeURIComponent(url)+'"';
+
       $.getJSON(
         // user request to encode the url and submit it for storage
         // users must have an account and agree to terms on mitta.us/legal
-        domain+"/s/"+sidekick+'?line=!search url:"'+encodeURI(url)+'"'
+        request_url
       ).done(function(data) {
         // upload image to existing document
         if (data.response.docs[0]) {
@@ -208,7 +214,7 @@ var Screenshotter = {
             type: 'POST',
             data: JSON.stringify({
               title: title,
-              url: url,
+              url: encodeURIComponent(url),
               tags: ["#url"]
             }),
             contentType: 'application/json',
@@ -224,7 +230,7 @@ var Screenshotter = {
               url: domain+"/i/"+sidekick,
               type: 'POST',
               data: JSON.stringify([{
-                line: "?line=!crawl " + url,
+                line: "!crawl " + encodeURIComponent(url),
                 url: url,
                 title: title,
                 spool: spool_name 
