@@ -25,7 +25,7 @@ var UI = {
 
 
 chrome.browserAction.onClicked.addListener(function(tab) {
-  UI.status('orange', "grab");
+  UI.status('orange', "🤖");
 
   Screenshotter.grab();
   //chrome.extension.sendMessage({ action: 'grab' });

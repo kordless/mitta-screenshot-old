@@ -74,7 +74,7 @@
       // LOOP >>
       // This bounces to the screenshot call before coming back in this function.
       // The delay is due to some weird race conditions.
-      setTimeout(function() { screenshotVisibleArea(shared); }, 500);
+      setTimeout(function() { screenshotVisibleArea(shared); }, 340);
     }
   }
 

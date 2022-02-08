@@ -110,7 +110,7 @@ var Screenshotter = {
         chrome.tabs.sendMessage(self.shared.tab.id, { action: 'heartbeat' }, function(response) {
           if (!response) {
             UI.status('red', "!", 1000);
-            alert("Please reload the page.\n\n");
+            alert("Please wait for the page to finish loading. If you just installed the extension, please reload the page.\n\n");
           }
         });
 
@@ -146,7 +146,7 @@ var Screenshotter = {
   // 4
   screenshotEnd: function(shared) {
     var self = this;
-    UI.status('azure', "make");
+    UI.status('azure', "📷");
 
     this.recursiveImageMerge(this.imageDataURLPartial, shared.imageDirtyCutAt, shared.tab.hasVscrollbar, function(image) {
       shared.imageDataURL = image;
@@ -188,6 +188,8 @@ var Screenshotter = {
         // users must have an account and agree to terms on mitta.us/legal
         request_url
       ).done(function(data) {
+
+        UI.status('yellow', "💾", 3000);
         // upload image to existing document
         if (data.response.docs[0]) {
           var spool = data.response.docs[0]['spool'];
@@ -268,7 +270,7 @@ var Screenshotter = {
 
 
     }).fail(function() {
-      UI.status('red', "!", 0);
+      UI.status('red', "!", 10000);
       alert("Please login to Mitta to enable uploads.");
     });
     // end settings GET
