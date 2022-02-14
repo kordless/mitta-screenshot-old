@@ -109,7 +109,7 @@ var Screenshotter = {
         // ****** Check if script is loaded
         chrome.tabs.sendMessage(self.shared.tab.id, { action: 'heartbeat' }, function(response) {
           if (!response) {
-            UI.status('red', "!", 1000);
+            UI.status("❌", 5000);
             alert("Please wait for the page to finish loading. If you just installed the extension, please reload the page.\n\n");
           }
         });
@@ -146,7 +146,7 @@ var Screenshotter = {
   // 4
   screenshotEnd: function(shared) {
     var self = this;
-    UI.status('azure', "📷");
+    UI.status("📷", 3000);
 
     this.recursiveImageMerge(this.imageDataURLPartial, shared.imageDirtyCutAt, shared.tab.hasVscrollbar, function(image) {
       shared.imageDataURL = image;
@@ -189,7 +189,7 @@ var Screenshotter = {
         request_url
       ).done(function(data) {
 
-        UI.status('yellow', "💾", 3000);
+        UI.status("💾", 3000);
         // upload image to existing document
         if (data.response.docs[0]) {
           var spool = data.response.docs[0]['spool'];
@@ -204,7 +204,7 @@ var Screenshotter = {
             processData: false,
             contentType: false
           }).done(function(){
-            UI.status('green', "✓", 3000);
+            UI.status("👍🏽", 3000);
           }).fail(function(){
             alert("An error occurred and the files were not sent.");
           });
@@ -250,7 +250,7 @@ var Screenshotter = {
                 processData: false,
                 contentType: false
               }).done(function(){
-                UI.status('green', "✓", 3000);
+                UI.status("👍🏽", 3000);
               }).fail(function(xhr, textStatus, errorThrown){
                 alert("An error occurred and no upload was done.");
               });
@@ -270,7 +270,7 @@ var Screenshotter = {
 
 
     }).fail(function() {
-      UI.status('red', "!", 10000);
+      UI.status("❌", 5000);
       alert("Please login to Mitta to enable uploads.");
     });
     // end settings GET
@@ -320,7 +320,7 @@ var Screenshotter = {
           // Ouch: Skia / Chromium limitation
           // https://bugs.chromium.org/p/chromium/issues/detail?id=339725
           // https://bugs.chromium.org/p/skia/issues/detail?id=2122
-          if (canvas.height > 8000) canvas.height = 8000;
+          if (canvas.height > 8500) canvas.height = 8500;
 
           // ****** Stitch
           for (var j = 0; j < images.length; j++) {
@@ -330,9 +330,6 @@ var Screenshotter = {
             var height = images[j].height - cut;
             var width = images[j].width;
 
-            // void canvas.getContext("2d").drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
-            //console.log("[i:" + i + ", j:" + j + "] --- total images:" + imageDataURLs.length);
-            //console.log("--> drawImage(images[" + j + "], sx:0, sy/cut:" + cut + ", swidth:" + width + ", sheight:" + height + ", dx:0, dy:" + (j * images[0].height) + ", dwidth:" + width + ", dheight:" + height + ");");
             canvas.getContext("2d").drawImage(images[j], 0, cut, width, height, 0, j * images[0].height, width, height);
           }
 

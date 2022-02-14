@@ -75,7 +75,7 @@ var height_limit = 8500;
       // LOOP >>
       // This bounces to the screenshot call before coming back in this function.
       // The delay is due to some weird race conditions.
-      setTimeout(function() { screenshotVisibleArea(shared); }, 340);
+      setTimeout(function() { screenshotVisibleArea(shared); }, 501);
     }
   }
 
@@ -90,40 +90,6 @@ var height_limit = 8500;
     var timestamp = '' + d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()) + '-' + pad2(d.getHours()) + '' + pad2(d.getMinutes()) + '\'' + pad2(d.getSeconds()) + '';
     var filename = "pageshot of '" + normalizeFileName(shared.tab.title) + "' @ " + timestamp;
     var blobURL = dataToBlobURL(shared.imageDataURL);
-    /* remove the preview
-    if (blobURL) {
-      // ****** Add DOM Elements to Page
-      renderTemplate("overlay", {
-        blobURL: blobURL,
-        filename: filename,
-        pageHeight: window.document.body.scrollHeight,
-      }, function(div) {
-        // ****** Add Event Listeners
-        function actionRemoveDiv() {
-          // Closes the extension overlays.
-          if (div) div.parentElement.removeChild(div);
-
-          // Cleanup
-          window.URL.revokeObjectURL(blobURL);
-        }
-        function actionDragFile(e) {
-          if (window.location.protocol === "https:") {
-            // we can't set the name, fall back to the ugly name
-          } else {
-            // Set a nice name
-            e.dataTransfer.setData("DownloadURL", "image/png:" + filename + ".png:" + blobURL);
-            //e.dataTransfer.setData("DownloadURL", "text/plain:feh.txt:data:feadhsahdsha");
-          }
-        }
-        window.document.getElementById('chrome-extension__mitta-dim').addEventListener("click", actionRemoveDiv);
-        window.document.getElementById('chrome-extension__mitta-img').addEventListener("dragstart", actionDragFile);
-      });
-    } else {
-      // ****** No content! Maybe page too long?
-      alert("There was some trouble in generating the screenshot.\n\nIt might be due to Chrome canvas size limitations.\nTry on a shorter page?\n\n\n");
-    }
-    */
-
   }
 
   // ****************************************************************************************** EVENT MANAGER / HALF
