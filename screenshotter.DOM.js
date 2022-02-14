@@ -30,6 +30,7 @@
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
+var height_limit = 8500;
 
 (function() {
 
@@ -43,7 +44,7 @@
     // Identify which part of the DOM is "scrolling", and store the previous position
     var scrollNode = document.scrollingElement || document.documentElement;
 
-    if (scrollNode.scrollHeight > 7500) {
+    if (scrollNode.scrollHeight > height_limit) {
       // alert("\n\n\nDue to Chrome canvas memory limits, the screenshot will be limited to 16,000px height.\n\n\n");
     }
 
@@ -65,7 +66,7 @@
     // Scroll down!
     scrollNode.scrollTop += window.innerHeight;
 
-    if (scrollNode.scrollTop == scrollTopBeforeScrolling || scrollNode.scrollTop > 7500) { // 32766 --> Skia / Chrome Canvas Limitation, see recursiveImageMerge()
+    if (scrollNode.scrollTop == scrollTopBeforeScrolling || scrollNode.scrollTop > height_limit) { // 32766 --> Skia / Chrome Canvas Limitation, see recursiveImageMerge()
       // END ||
       shared.imageDirtyCutAt = scrollTopBeforeScrolling % window.innerHeight;
       scrollNode.scrollTop = shared.originalScrollTop; // <-[] restore user scrollTop
