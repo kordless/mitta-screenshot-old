@@ -38,7 +38,9 @@ Mitta Screenshot will be available on the Chrome store in the near future.
 
 Use
 ---
-To use the extension, navigate to a page you want to save and then click on the > icon. The page will be index by Mitta within a few seconds.
+To use the extension, ensure you are logged into [Mitta](https://mitta.us/).
+
+Navigate to a page you want to crawl and then click on the > icon. The page will be index by Mitta within a few seconds.
 
 Please let me know if you have any questions or suggstions!
 
