@@ -16,7 +16,7 @@ Video
 -----
 The following video covers installing Mitta Screenshot:
 
-[![Mitta Screenshot Video](https://img.youtube.com/vi/k1804FaFTdM/0.jpg)](https://www.youtube.com/watch?v=k1804FaFTdM)
+[![Mitta Screenshot Video](https://img.youtube.com/vi/asJWknzyhbY/0.jpg)](https://youtu.be/asJWknzyhbY)
 
 Installation
 ------------
