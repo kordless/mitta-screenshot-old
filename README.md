@@ -4,7 +4,9 @@ Mitta is an AI powered search engine. This Chrome extension will crawl and index
 
 License
 -------
-Mitta Screenshot is copyright 2021 by Kord Campbell. Mitta Screen shot is based on [Blipshot](https://github.com/folletto/Blipshot), copyright 2010-2017 by Erin Casali. 
+Mitta Screenshot is copyright 2021 by Kord Campbell.
+
+Mitta Screenshot is based on [Blipshot](https://github.com/folletto/Blipshot), copyright 2010-2017 by Erin Casali. 
 
 Mitta Screenshot is licensed under the [original BSD License](https://github.com/kordless/mitta-screenshot/blob/main/license.txt). 
 
