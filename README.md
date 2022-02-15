@@ -42,4 +42,4 @@ Please let me know if you have any questions or suggstions!
 
 Kord Campbell
 Mitta.us
-@mitta_us on Twitter
+[@mitta_us](https://twitter.com/mitta_us)
