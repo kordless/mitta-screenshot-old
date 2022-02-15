@@ -1,35 +1,43 @@
 Mitta Screenshot
 ================
-Mitta Screenshot is a Google Chrome extension to screenshot and upload webpages to [Mitta](https://mitta.us/). Mitta uses machine learning to "crawl" the information contained visually in a given page or image. This allows you to quickly and easily search for these and related items later when you have forgotten where they went.
+Mitta is an AI powered search engine. This Chrome extension will crawl and index a website using your browser.
 
 License
 -------
-Mitta Screenshot is copyright 2021 by Kord Campbell and copyright 2010-2017 by Erin Casali. It is licensed under the [original BSD License](https://github.com/kordless/mitta-screenshot/blob/main/license.txt). The original project is hosted [on Github as Blipshot](https://github.com/folletto) and authors of that project do not promote or represent Mitta, Mitta.us or its affliates.
+Mitta Screenshot is copyright 2021 by Kord Campbell. Mitta Screen shot is based on [Blipshot](https://github.com/folletto/Blipshot), copyright 2010-2017 by Erin Casali. 
+
+Mitta Screenshot is licensed under the [original BSD License](https://github.com/kordless/mitta-screenshot/blob/main/license.txt). 
+
+Blipshot and authors do not promote or represent Mitta, Mitta.us or its affliates.
 
 Video
 -----
-Watch the video to install the developer extension. It's not hard!
+The following video covers installing Mitta Screenshot:
 
-
-[![Chrome Extension](https://img.youtube.com/vi/k1804FaFTdM/0.jpg)](https://www.youtube.com/watch?v=k1804FaFTdM)
+[![Mitta Screenshot Video](https://img.youtube.com/vi/k1804FaFTdM/0.jpg)](https://www.youtube.com/watch?v=k1804FaFTdM)
 
 Installation
 ------------
-You may install a developer version of this software by [downloading the zip file](https://github.com/kordless/mitta-screenshot/archive/refs/heads/main.zip) and uncompressing it on your local drive.
+A developer version of this software is [available](https://github.com/kordless/mitta-screenshot/archive/refs/heads/main.zip). To begine, uncompress the archive and move the file to your local drive.
 
-In the Chrome menus, click on "more tools" and the "extensions" menu item. In the extensions view, enable "developer mode" by using the slider at the top right. Click "load unpacked" in the top left and then navigate into the uncompressed *mitta-screenshot* folder.
+1. In Chrome's menus, click on *"more tools"* and *"extensions"*. 
 
+2. In the extensions view, enable "developer mode" using the slider at the top right.
 
-Click "select folder" to load the extension. Click the Extensions icon (a puzzle piece) in the top right corner of the browser and then click the pin icon next to the Mitta Screenshot extension. This will display the > icon in the browser.
+3. Click "load unpacked" in the top left and then navigate into the uncompressed *mitta-screenshot* folder.
 
-You may also be able to find the extension on the Chrome store, but it won't be regularly published until we launch and have finished testing and quality assurance on the plugin and site. Try to use the developer version!
+4. Click "select folder" to load the extension. 
+
+5. Click the Extensions icon (a puzzle piece) in the top right corner and click the pin icon next to the Mitta Screenshot extension.
+
+Mitta Screenshot will be available on the Chrome store in the near future.
 
 Use
 ---
-To use the extension, navigate to a page and then click on the > icon to save and index the page. You can use the terminal console on Mitta to search for the page by term. Any word found on the page by the machine learning model will be in the index!
-
-
+To use the extension, navigate to a page you want to save and then click on the > icon. The page will be index by Mitta within a few seconds.
 
 Please let me know if you have any questions or suggstions!
 
-Kord 
+Kord Campbell
+Mitta.us
+@mitta_us on Twitter
