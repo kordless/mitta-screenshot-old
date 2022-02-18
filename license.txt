@@ -1,11 +1,10 @@
 /*
- *  Blipshot (to 2020)
  *  Mitta Screenshot (2021 forward)
  *
  *  ==========================================================================================
  *
- *  Copyright (c) 2010-2017, Erin Casali.
- *  Bits related to Mitta Copyright (c) 2021, Kord Campbell.
+ *  Copyright (c) 2021, Kord Campbell.
+ *  Copyright (c) 2022, Mitta.us
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without modification, are

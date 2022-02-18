@@ -1,35 +1,3 @@
-/*
- *  Screenshot (Previously Blipshot)
- *  Screenshotter.DOM.js
- *  Half of the screenshotter algorithm. See Screenshotter.js for the other half.
- *
- *  ==========================================================================================
- *
- *  Copyright (c) 2010-2017, Davide Casali.
- *  All rights reserved.
- *
- *  Redistribution and use in source and binary forms, with or without modification, are
- *  permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this list of
- *  conditions and the following disclaimer.
- *  Redistributions in binary form must reproduce the above copyright notice, this list of
- *  conditions and the following disclaimer in the documentation and/or other materials
- *  provided with the distribution.
- *  Neither the name of the Baker Framework nor the names of its contributors may be used to
- *  endorse or promote products derived from this software without specific prior written
- *  permission.
- *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- *  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- *  OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- *  SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
- *  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- *  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- *  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- *  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- */
 var height_limit = 8500;
 
 (function() {
@@ -37,52 +5,42 @@ var height_limit = 8500;
   var shared = {};
   var templates = {};
 
-  // ****************************************************************************************** SCREENSHOT SEQUENCE
-
-  // 1
   function screenshotBegin(shared) {
-    // Identify which part of the DOM is "scrolling", and store the previous position
     var scrollNode = document.scrollingElement || document.documentElement;
 
-    if (scrollNode.scrollHeight > height_limit) {
-      // alert("\n\n\nDue to Chrome canvas memory limits, the screenshot will be limited to 16,000px height.\n\n\n");
-    }
-
-    shared.originalScrollTop = scrollNode.scrollTop; // ->[] save user scrollTop
+    shared.originalScrollTop = scrollNode.scrollTop;
     shared.tab.hasVscrollbar = (window.innerHeight < scrollNode.scrollHeight);
     scrollNode.scrollTop = 0;
     setTimeout(function() { screenshotVisibleArea(shared); }, 500);
   }
 
-  // 2
-  function screenshotVisibleArea(shared) { chrome.extension.sendMessage({ action: 'screenshotVisibleArea', shared: shared }); }
+  function screenshotVisibleArea(shared) {
+    chrome.extension.sendMessage(
+      { action: 'screenshotVisibleArea', shared: shared }
+    ); 
+  }
 
-  // 3
   function screenshotScroll(shared) {
-    // Identify which part of the DOM is "scrolling", and store the previous position
     var scrollNode = document.scrollingElement || document.documentElement;
     var scrollTopBeforeScrolling = scrollNode.scrollTop;
 
-    // Scroll down!
     scrollNode.scrollTop += window.innerHeight;
 
-    if (scrollNode.scrollTop == scrollTopBeforeScrolling || scrollNode.scrollTop > height_limit) { // 32766 --> Skia / Chrome Canvas Limitation, see recursiveImageMerge()
-      // END ||
-      shared.imageDirtyCutAt = scrollTopBeforeScrolling % window.innerHeight;
-      scrollNode.scrollTop = shared.originalScrollTop; // <-[] restore user scrollTop
+    if (scrollNode.scrollTop == scrollTopBeforeScrolling || scrollNode.scrollTop > height_limit) {
+      shared.imageDirtyCutAt = scrollTopBeforeScrolling % (window.innerHeight);
+      scrollNode.scrollTop = shared.originalScrollTop;
       screenshotEnd(shared);
     } else {
-      // LOOP >>
-      // This bounces to the screenshot call before coming back in this function.
-      // The delay is due to some weird race conditions.
       setTimeout(function() { screenshotVisibleArea(shared); }, 501);
     }
   }
 
-  // 4
-  function screenshotEnd(shared) { chrome.extension.sendMessage({ action: 'screenshotEnd', shared: shared }); }
+  function screenshotEnd(shared) { 
+    chrome.extension.sendMessage(
+      { action: 'screenshotEnd', shared: shared }
+    ); 
+  }
 
-  // 5
   function screenshotReturn(shared) {
     function pad2(str) { if ((str + "").length == 1) return "0" + str; return "" + str; }
 
@@ -92,12 +50,7 @@ var height_limit = 8500;
     var blobURL = dataToBlobURL(shared.imageDataURL);
   }
 
-  // ****************************************************************************************** EVENT MANAGER / HALF
   function eventManagerInit() {
-    /****************************************************************************************************
-     * This function prepares the internal plugin callbacks to bounce between the plugin and DOM side.
-     * It's initialized right after declaration.
-     */
     var self = this;
     chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
         switch (request.action) {
@@ -106,46 +59,13 @@ var height_limit = 8500;
           case "screenshotReturn": screenshotReturn(request.shared); break;
         }
 
-        sendResponse(true); // this can be checked to verify if the script is loaded (heartbeat)
+        sendResponse(true);
     });
   }
-  eventManagerInit(); // Init
 
-  // ****************************************************************************************** SUPPORT
-  function renderScreenshotOverlay(blobURL, filename, callback) {
-    // ****** Add DOM Elements to Page
-    renderTemplate("overlay", {
-      blobURL: blobURL,
-      filename: filename,
-      pageHeight: window.document.body.scrollHeight,
-    }, callback);
-  }
-
-  function renderTemplate(name, data, callback) {
-    /****************************************************************************************************
-     * Loads the template and rendes it on the DOM.
-     */
-    var name = name || "template";
-
-    if (!templates[name]) {
-      // Load, cache and use
-      var xhr = new XMLHttpRequest();
-      xhr.addEventListener("load", function() {
-        templates[name] = this.responseText;
-        appendTemplate(templates[name], data, callback);
-      });
-      xhr.open("GET", chrome.runtime.getURL("resources/" + name + ".html"));
-      xhr.send();
-    } else {
-      // Use cached
-      appendTemplate(templates[name], data, callback);
-    }
-  }
+  eventManagerInit();
 
   function appendTemplate(templateString, data, callback) {
-    /****************************************************************************************************
-     * Replaces the variables in the template and appends them to the DOM.
-     */
     var templatePrepared = templateString;
 
     for(var key in data) {
@@ -160,12 +80,6 @@ var height_limit = 8500;
   }
 
   function dataToBlobURL(dataURL) {
-    /****************************************************************************************************
-     * Converts a data:// URL (i.e. `canvas.toDataURL("image/png")`) to a blob:// URL.
-     * This allows a shorter URL and a simple management of big data objects.
-     *
-     * Contributor: Ben Ellis <https://github.com/ble>
-     */
     var parts = dataURL.match(/data:([^;]*)(;base64)?,([0-9A-Za-z+/]+)/);
 
     if (parts && parts.length >= 3) {
@@ -190,9 +104,7 @@ var height_limit = 8500;
 
   function normalizeFileName(string) {
     out = string;
-    //out = out.replace(/"/, '\''); // To avoid collision with DOM attribute
-    //out = out.replace(/\/\?<>\\:\*\|/, '-'); // Windows safe
-    out = out.replace(/[^a-zA-Z0-9_\-+,;'!?$£@&%()\[\]=]/g, " ").replace(/ +/g, " "); // Hard replace
+    out = out.replace(/[^a-zA-Z0-9_\-+,;'!?$£@&%()\[\]=]/g, " ").replace(/ +/g, " ");
     return out;
   }
 })();

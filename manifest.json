@@ -21,13 +21,10 @@
     "scripts": ["screenshotter.js", "actions.js", "resources/jquery.min.js"]
   },
   "content_scripts": [
-    { "js": [ "screenshotter.DOM.js", "blanketStyleSet.js" ], "matches": [ "<all_urls>" ], "run_at": "document_end" }
+    { "js": [ "screenshotter.DOM.js" ], "matches": [ "<all_urls>" ], "run_at": "document_end" }
   ],
   "permissions": [
     "activeTab",
     "<all_urls>"
-  ],
-  "web_accessible_resources": [
-    "resources/overlay.html"
   ]
 }
