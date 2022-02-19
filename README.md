@@ -1,6 +1,6 @@
 Mitta Screenshot
 ================
-Mitta is an AI powered search engine. This Chrome extension will crawl and index a website using your browser.
+Mitta is an AI powered search engine. This Chrome extension allows users to crawl and index a website using their browser. Images are uploaded to [Mitta.us](https://mitta.us/).
 
 License
 -------
