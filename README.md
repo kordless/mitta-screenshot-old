@@ -6,8 +6,6 @@ License
 -------
 Mitta Screenshot is copyright 2021 by Kord Campbell.
 
-Mitta Screenshot is based on [Blipshot](https://github.com/folletto/Blipshot), copyright 2010-2017 by Erin Casali. 
-
 Mitta Screenshot is licensed under the [original BSD License](https://github.com/kordless/mitta-screenshot/blob/main/license.txt). 
 
 Blipshot and authors do not promote or represent Mitta, Mitta.us or its affliates.
