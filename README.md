@@ -34,7 +34,7 @@ Use
 ---
 To use the extension, ensure you are logged into [Mitta](https://mitta.us/).
 
-Navigate to a page you want to crawl and then click on the > icon. The page will be index by Mitta within a few seconds.
+Navigate to a page you want to crawl and then click on the **>** icon. The page will be index by Mitta within a few seconds.
 
 Please let me know if you have any questions or suggstions!
 
