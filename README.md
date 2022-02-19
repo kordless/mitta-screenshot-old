@@ -18,15 +18,15 @@ A developer version of this software is [available for download](https://github.
 
 1. Uncompress the archive and move the file to your local drive.
 
-1. In Chrome's menus, click on **"more tools"** and **"extensions"**. 
+1. In Chrome's menus, click on **more tools** and **extensions**. 
 
-1. In the extensions view, enable **"developer mode"** using the slider at the top right.
+1. In the **extensions view**, enable **developer mode** using the slider at the top right.
 
-1. Click "load unpacked" in the top left and then navigate into the uncompressed *mitta-screenshot* folder.
+1. Click **load unpacked** in the top left and then navigate into the uncompressed **mitta-screenshot** folder.
 
-1. Click "select folder" to load the extension. 
+1. Click **select folder** to load the extension. 
 
-1. Click the Extensions icon (a puzzle piece) in the top right corner and click the pin icon next to the Mitta Screenshot extension.
+1. Click the **extensions icon** (puzzle piece) in the top right corner and click the **pin icon** next to the Mitta Screenshot extension.
 
 Mitta Screenshot will be available on the Chrome store in the near future.
 
