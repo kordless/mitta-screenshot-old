@@ -14,7 +14,7 @@ The following video covers installing Mitta Screenshot:
 
 Installation
 ------------
-A developer version of this software is [available](https://github.com/kordless/mitta-screenshot/archive/refs/heads/main.zip). 
+A developer version of this software is [available for download](https://github.com/kordless/mitta-screenshot/archive/refs/heads/main.zip). 
 
 1. Uncompress the archive and move the file to your local drive.
 
