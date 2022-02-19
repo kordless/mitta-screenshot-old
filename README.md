@@ -18,9 +18,9 @@ A developer version of this software is [available for download](https://github.
 
 1. Uncompress the archive and move the file to your local drive.
 
-1. In Chrome's menus, click on *"more tools"* and *"extensions"*. 
+1. In Chrome's menus, click on **"more tools"** and **"extensions"**. 
 
-1. In the extensions view, enable "developer mode" using the slider at the top right.
+1. In the extensions view, enable **"developer mode"** using the slider at the top right.
 
 1. Click "load unpacked" in the top left and then navigate into the uncompressed *mitta-screenshot* folder.
 
