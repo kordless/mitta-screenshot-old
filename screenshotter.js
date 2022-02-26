@@ -97,7 +97,7 @@ var Screenshotter = {
     $('#chrome-extension__mitta-dim').remove();
     chrome.tabs.sendMessage(this.shared.tab.id, { action: 'screenshotReturn', shared: shared });
     var domain = "https://mitta.us";
-    //var domain = "http://localhost:8080";
+    // var domain = "http://localhost:8080";
 
     var url = shared.tab.url;
     var title = shared.tab.title;
